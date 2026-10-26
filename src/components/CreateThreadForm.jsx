@@ -9,11 +9,13 @@ export default function CreateThreadForm() {
 
   const mutation = useMutation({
     mutationFn: createThread,
-    // TODO (Task 3): on success, fire a green toast: showToast("Thread posted!", "success")
-    onSuccess: () => {},
-    // TODO (Task 3): on error, read error.response?.data?.message (fall back to a generic
-    //   string) and fire a red toast: showToast(message, "error")
-    onError: () => {},
+    onSuccess: () => {
+      showToast("Thread posted!", "success");
+    },
+    onError: (error) => {
+      const message = error.response?.data?.message || "Failed to post thread.";
+      showToast(message, "error");
+    },
   });
 
   function handleSubmit(e) {
